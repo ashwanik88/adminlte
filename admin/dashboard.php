@@ -1,3 +1,9 @@
+<?php require_once('../config.php'); 
+	if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
+		header('Location: index.php');
+		die;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,6 +122,10 @@ to get the desired effect
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
+	  
+
+	  
+		
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
@@ -146,7 +156,12 @@ to get the desired effect
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
             class="fas fa-th-large"></i></a>
       </li>
-    </ul>
+	  <li class="nav-item">
+		<a class="nav-link" href="logout.php">
+			<i class="fa fa-sign-out-alt"></i>
+		</a>
+	  </li>
+	</ul>
   </nav>
   <!-- /.navbar -->
 

@@ -8,7 +8,11 @@ if($_POST){
 	
 	$rs = mysqli_query($conn, $sql);
 	if(mysqli_num_rows($rs)){
-		header('Location: dashboard.php');
+		$rec = mysqli_fetch_assoc($rs);
+		
+		$_SESSION['user'] = $rec;
+		
+		header('Location: dashboard.php');	// redirection
 		die;
 	}else{
 		$error = 'Incorrect username/password!';
