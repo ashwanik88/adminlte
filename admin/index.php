@@ -1,8 +1,11 @@
-<?php require_once('../config.php');
-$error = '';
-if($_POST){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+<?php require_once('include/startup.php'); 
+// echo '<pre>';
+// print_r($_SESSION);
+// die;
+
+if(isset($_COOKIE['username']) && !empty($_COOKIE['username']) && isset($_COOKIE['password']) && !empty($_COOKIE['password'])){
+	$username = $_COOKIE['username'];
+	$password = $_COOKIE['password'];
 	
 	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". $password ."'";
 	
@@ -12,10 +15,42 @@ if($_POST){
 		
 		$_SESSION['user'] = $rec;
 		
-		header('Location: dashboard.php');	// redirection
-		die;
+		if(isset($_POST['remember']) && !empty($_POST['remember'])){
+			setcookie('username', $username, time() + 3600);
+			setcookie('password', md5($password), time() +  3600);
+		}
+		
+		addAlert('success', 'Welcome to admin panel!');
+		redirect('dashboard.php');
 	}else{
-		$error = 'Incorrect username/password!';
+		addAlert('danger', 'Invalid username/password!');
+		redirect('index.php');
+	}
+}
+
+
+if($_POST){
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	
+	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". md5($password) ."'";
+	
+	$rs = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($rs)){
+		$rec = mysqli_fetch_assoc($rs);
+		
+		$_SESSION['user'] = $rec;
+		
+		if(isset($_POST['remember']) && !empty($_POST['remember'])){
+			setcookie('username', $username, time() + 3600);
+			setcookie('password', md5($password), time() +  3600);
+		}
+		
+		addAlert('success', 'Welcome to admin panel!');
+		redirect('dashboard.php');
+	}else{
+		addAlert('danger', 'Invalid username/password!');
+		redirect('index.php');
 	}
 }
 ?>
@@ -49,21 +84,14 @@ if($_POST){
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-	  <?php if($error){ ?>
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		  <?php echo $error; ?>!
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>	  
-	  <?php } ?>
+	  <?php showAlert(); ?>
 		
       <form id="frmLogin" action="" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="username" id="username" class="form-control" placeholder="Email" >
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username" >
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
@@ -78,7 +106,7 @@ if($_POST){
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember" >
+              <input type="checkbox" id="remember" name="remember" value="true" >
               <label for="remember">
                 Remember Me
               </label>

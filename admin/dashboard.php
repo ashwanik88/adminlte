@@ -1,7 +1,6 @@
-<?php require_once('../config.php'); 
+<?php require_once('include/startup.php'); 
 	if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
-		header('Location: index.php');
-		die;
+		redirect('index.php');
 	}
 ?>
 <!DOCTYPE html>
@@ -737,10 +736,20 @@ to get the desired effect
               <li class="breadcrumb-item active">Dashboard v3</li>
             </ol>
           </div><!-- /.col -->
+		  
+		  
+		  
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+			<?php showAlert(); ?>
+			</div>
+		</div>
+	</div>
 
     <!-- Main content -->
     <div class="content">

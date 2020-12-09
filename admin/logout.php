@@ -1,6 +1,8 @@
-<?php require_once('../config.php');
+<?php require_once('include/startup.php'); 
 
 unset($_SESSION['user']);
 
-header('Location: index.php');	// redirection
-die;
+setcookie('username', $username, time() - 3600);
+setcookie('password', md5($password), time() -  3600);
+
+redirect('index.php');
