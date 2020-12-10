@@ -27,3 +27,25 @@ function redirect($page){
 	header('Location: ' . $page);
 	die;
 }
+
+function checkUserLogin($conn, $username, $password){
+	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". $password ."'";
+	
+	$rs = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($rs)){
+		$rec = mysqli_fetch_assoc($rs);
+		
+		$_SESSION['user'] = $rec;
+		
+		if(isset($_POST['remember']) && !empty($_POST['remember'])){
+			setcookie('username', $username, time() + 3600);
+			setcookie('password', $password, time() +  3600);
+		}
+		
+		addAlert('success', 'Welcome to admin panel!');
+		redirect('dashboard.php');
+	}else{
+		addAlert('danger', 'Invalid username/password!');
+		redirect('index.php');
+	}
+}

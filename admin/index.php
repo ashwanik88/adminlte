@@ -2,56 +2,22 @@
 // echo '<pre>';
 // print_r($_SESSION);
 // die;
+if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+	$username = $_SESSION['user']['username'];
+	$password = $_SESSION['user']['password'];
+	checkUserLogin($conn, $username, $password);
+}
 
 if(isset($_COOKIE['username']) && !empty($_COOKIE['username']) && isset($_COOKIE['password']) && !empty($_COOKIE['password'])){
 	$username = $_COOKIE['username'];
 	$password = $_COOKIE['password'];
-	
-	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". $password ."'";
-	
-	$rs = mysqli_query($conn, $sql);
-	if(mysqli_num_rows($rs)){
-		$rec = mysqli_fetch_assoc($rs);
-		
-		$_SESSION['user'] = $rec;
-		
-		if(isset($_POST['remember']) && !empty($_POST['remember'])){
-			setcookie('username', $username, time() + 3600);
-			setcookie('password', md5($password), time() +  3600);
-		}
-		
-		addAlert('success', 'Welcome to admin panel!');
-		redirect('dashboard.php');
-	}else{
-		addAlert('danger', 'Invalid username/password!');
-		redirect('index.php');
-	}
+	checkUserLogin($conn, $username, $password);
 }
-
 
 if($_POST){
 	$username = $_POST['username'];
-	$password = $_POST['password'];
-	
-	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". md5($password) ."'";
-	
-	$rs = mysqli_query($conn, $sql);
-	if(mysqli_num_rows($rs)){
-		$rec = mysqli_fetch_assoc($rs);
-		
-		$_SESSION['user'] = $rec;
-		
-		if(isset($_POST['remember']) && !empty($_POST['remember'])){
-			setcookie('username', $username, time() + 3600);
-			setcookie('password', md5($password), time() +  3600);
-		}
-		
-		addAlert('success', 'Welcome to admin panel!');
-		redirect('dashboard.php');
-	}else{
-		addAlert('danger', 'Invalid username/password!');
-		redirect('index.php');
-	}
+	$password = md5($_POST['password']);
+	checkUserLogin($conn, $username, $password);
 }
 ?>
 <!DOCTYPE html>
