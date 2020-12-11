@@ -28,6 +28,12 @@ function redirect($page){
 	die;
 }
 
+function authUser(){
+	if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
+		redirect('index.php');
+	}
+}
+
 function checkUserLogin($conn, $username, $password){
 	$sql = "SELECT * FROM tbl_user WHERE username='". $username ."' AND password='". $password ."'";
 	

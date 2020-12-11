@@ -1,8 +1,5 @@
-<?php require_once('include/startup.php'); 
-	if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
-		redirect('index.php');
-	}
-?>
+<?php require_once('include/startup.php'); ?>
+<?php require_once('library/dashboard_lib.php'); ?>
 <?php require_once('common/head_start.php'); ?>
 <?php require_once('common/head_end.php'); ?>
 <?php require_once('common/navbar.php'); ?>
