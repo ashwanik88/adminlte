@@ -45,11 +45,8 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Products</h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
+                  <a href="form_user.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-plus"></i> Add New User
                   </a>
                 </div>
               </div>
@@ -57,90 +54,43 @@
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
-                    <th>More</th>
+                    <th><input type="checkbox" onclick="$('.chk').attr('checked', $(this).is(':checked'));" /></th>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Fullname</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Date Added</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+				  <?php if(sizeof($data)){ ?>
+				  <?php foreach($data as $row){ ?>
+				  <tr>
+					<td><input type="checkbox" class="chk" name="user_ids" value="<?php echo $row['user_id'] ?>" /></td>
+                    <td><?php echo $row['user_id'] ?></td>
+                    <td><?php echo $row['username'] ?></td>
+                    <td><?php echo $row['fullname'] ?></td>
+                    <td><?php echo $row['phone'] ?></td>
+                    <td><?php echo $row['email'] ?></td>
+                    <td><?php echo $row['date_added'] ?></td>
+                    <td><?php echo ($row['status'])?'Active':'Inactive'; ?></td>
+                    
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
+                      <a href="form_user.php?user_id=<?php echo $row['user_id'] ?>" class="text-muted">
+                        <i class="fas fa-edit"></i>
                       </a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      <small class="text-warning mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        0.5%
-                      </small>
-                      123,234 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
+				  <?php }?>
+				  <?php }else{ ?>
+				  <tr>
+                    <td colspan="4">No Record Found!</td>
                   </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      <small class="text-danger mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        3%
-                      </small>
-                      198 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Perfect Item
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        63%
-                      </small>
-                      87 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
+				  <?php } ?>
+                  
                   </tbody>
                 </table>
               </div>
