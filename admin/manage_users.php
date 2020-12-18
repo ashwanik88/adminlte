@@ -55,8 +55,8 @@
                   <thead>
                   <tr>
                     <th><input type="checkbox" onclick="$('.chk').attr('checked', $(this).is(':checked'));" /></th>
-                    <th>User ID</th>
-                    <th>Username</th>
+                    <th><a href="manage_users.php?sort=user_id&order=<?php echo $order; ?>">User ID </a></th>
+                    <th><a href="manage_users.php?sort=username&order=<?php echo $order; ?>">Username </a></th>
                     <th>Fullname</th>
                     <th>Phone</th>
                     <th>Email</th>
