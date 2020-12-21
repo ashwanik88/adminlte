@@ -93,6 +93,16 @@
                   
                   </tbody>
                 </table>
+				
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+  <?php $npages = ceil($page_total/$pagesize); ?>
+  <?php if($npages > 0){ for($n = 1; $n <= $npages; $n++){ ?>
+    <li class="page-item <?php echo ($cur_page == $n)?'active':'';?>"><a class="page-link" href="manage_users.php?page=<?php echo $n; ?>"><?php echo $n; ?></a></li>
+  <?php } } ?>  
+  </ul>
+</nav>
+				
               </div>
             </div>
             <!-- /.card -->
