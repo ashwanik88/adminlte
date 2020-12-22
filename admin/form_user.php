@@ -50,7 +50,7 @@
                   </a>
                 </div>
               </div>
-              <form method="POST" action="" role="form" id="quickForm">
+              <form method="POST" action="" role="form" id="quickForm" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="row">
 					<div class="col-sm-6">
@@ -65,6 +65,10 @@
 					  <div class="form-group">
 						<label for="confirm">Confirm Password</label>
 						<input type="password" name="confirm" class="form-control" id="confirm" placeholder="Enter Confirm Password">
+					  </div>
+					  <div class="form-group">
+						<label for="confirm">File Upload</label>
+						<input type="file" name="flpUpload" class="form-control" id="flpUpload">
 					  </div>
 					</div>
 					<div class="col-sm-6">

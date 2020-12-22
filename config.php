@@ -1,6 +1,13 @@
 <?php 
 session_start();
 
+// echo '<pre>';
+// print_r($_SERVER);
+// die;
+
+define('DIR_UPLOADS', $_SERVER['DOCUMENT_ROOT'] . '/training-ashish/php/uploads/');
+define('HTTP_UPLOADS', 'http://localhost/training-ashish/php/uploads/');
+
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = 'root';

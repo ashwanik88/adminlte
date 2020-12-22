@@ -22,6 +22,7 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
 
 if($_POST){
 	if(isset($_POST['username']) && !empty($_POST['username'])){
+		
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$confirm = $_POST['confirm'];
@@ -30,11 +31,24 @@ if($_POST){
 		$phone = $_POST['phone'];
 		$status = $_POST['status'];
 		
+		$filename = '';
+		
+		if(isset($_FILES['flpUpload']) && !empty($_FILES['flpUpload'])){
+			if($_FILES['flpUpload']['type'] == 'image/jpeg'){
+				$src_path = $_FILES['flpUpload']['tmp_name'];
+				$filename = 'profile/' .time() . '_'. $_FILES['flpUpload']['name'];
+				$dis_path = DIR_UPLOADS . $filename;
+				
+				move_uploaded_file($src_path, $dis_path);
+				
+			}
+		}
+		
 		if($is_edit){
-			$sql = "UPDATE tbl_user SET username='". $username ."', password='". md5($password) ."', fullname='". $fullname ."', email='". $email ."', phone='". $phone ."', status='". (int)$status ."' WHERE user_id='". (int)$user_id ."'";			
+			$sql = "UPDATE tbl_user SET username='". $username ."', password='". md5($password) ."', fullname='". $fullname ."', email='". $email ."', profile_photo='". $filename ."', phone='". $phone ."', status='". (int)$status ."' WHERE user_id='". (int)$user_id ."'";			
 			addAlert('success', 'User updated successfully!');
 		}else{
-			$sql = "INSERT tbl_user SET username='". $username ."', password='". md5($password) ."', fullname='". $fullname ."', email='". $email ."', phone='". $phone ."', status='". (int)$status ."'";	
+			$sql = "INSERT tbl_user SET username='". $username ."', password='". md5($password) ."', fullname='". $fullname ."', email='". $email ."', profile_photo='". $filename ."', phone='". $phone ."', status='". (int)$status ."'";	
 			addAlert('success', 'User added successfully!');
 		}
 		

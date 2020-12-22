@@ -42,15 +42,18 @@
           <div class="col-lg-12">
 
             <div class="card">
+			<form action="" method="GET">
               <div class="card-header border-0">
                 <h3 class="card-title">Products</h3>
                 <div class="card-tools">
                   <a href="form_user.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i> Add New User
                   </a>
+				  <input type="submit" value="Delete" name="btnDelete" class="btn btn-tool btn-sm" onclick="return confirm('Are you sure want to delete this?')" />
                 </div>
               </div>
               <div class="card-body table-responsive p-0">
+			  
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
@@ -58,6 +61,7 @@
                     <th><a href="manage_users.php?sort=user_id&order=<?php echo $order; ?>">User ID </a></th>
                     <th><a href="manage_users.php?sort=username&order=<?php echo $order; ?>">Username </a></th>
                     <th>Fullname</th>
+                    <th>Profile</th>
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Date Added</th>
@@ -66,13 +70,30 @@
                   </tr>
                   </thead>
                   <tbody>
+				  <tr>
+                    <th></th>
+                    <th><input type="text" name="user_id" size="5" value="<?php echo $user_id; ?>" /></th>
+                    <th><input type="text" name="username" size="10" value="<?php echo $username; ?>" /></th>
+                    <th><input type="text" name="fullname" size="10" /></th>
+                    <th></th>
+                    <th><input type="text" name="phone" size="10"/></th>
+                    <th><input type="text" name="email" size="10"/></th>
+                    <th><input type="text" name="date_added" size="10"/></th>
+                    <th><select name="status">
+					<option value=""></option>
+					<option value="1">Active</option>
+					<option value="0">Inactive</option>
+					</select></th>
+                    <th><input type="submit" value="Filter" /></th>
+                  </tr>
 				  <?php if(sizeof($data)){ ?>
 				  <?php foreach($data as $row){ ?>
 				  <tr>
-					<td><input type="checkbox" class="chk" name="user_ids" value="<?php echo $row['user_id'] ?>" /></td>
+					<td><input type="checkbox" class="chk" name="user_ids[]" value="<?php echo $row['user_id'] ?>" /></td>
                     <td><?php echo $row['user_id'] ?></td>
                     <td><?php echo $row['username'] ?></td>
                     <td><?php echo $row['fullname'] ?></td>
+                    <td><img src="<?php echo HTTP_UPLOADS. $row['profile_photo']; ?>" width="100" /></td>
                     <td><?php echo $row['phone'] ?></td>
                     <td><?php echo $row['email'] ?></td>
                     <td><?php echo $row['date_added'] ?></td>
@@ -94,6 +115,7 @@
                   </tbody>
                 </table>
 				
+			   
 <nav aria-label="Page navigation example">
   <ul class="pagination">
   <?php $npages = ceil($page_total/$pagesize); ?>
@@ -105,6 +127,7 @@
 				
               </div>
             </div>
+			</form>
             <!-- /.card -->
           </div>
           <!-- /.col-md-6 -->
