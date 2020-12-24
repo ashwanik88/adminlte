@@ -40,6 +40,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="manage_categories.php" class="nav-link">
+                  <i class="far fa-user nav-icon"></i>
+                  <p>Manage Categories</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="manage_users.php" class="nav-link">
                   <i class="far fa-user nav-icon"></i>
                   <p>Manage Users</p>
