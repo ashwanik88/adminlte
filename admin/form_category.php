@@ -65,6 +65,13 @@
 							<?php $sub_categories = getCategories($conn, $category['category_id']); ?>
 								<?php if(sizeof($sub_categories)){ foreach($sub_categories as $sub_category){ ?>
 								<option value="<?php echo $sub_category['category_id']; ?>">----<?php echo $sub_category['category_name']; ?></option>
+								
+								<?php $sub_sub_categories = getCategories($conn, $sub_category['category_id']); ?>
+								<?php if(sizeof($sub_sub_categories)){ foreach($sub_sub_categories as $sub_sub_category){ ?>
+								<option value="<?php echo $sub_sub_category['category_id']; ?>">--------<?php echo $sub_sub_category['category_name']; ?></option>
+								<?php }} ?>
+								
+								
 								<?php }} ?>
 							<?php }} ?>
 						</select>
