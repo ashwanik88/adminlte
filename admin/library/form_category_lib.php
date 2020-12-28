@@ -57,3 +57,13 @@ function getCategories($conn, $parent_id){
 	}
 	return $data;
 }
+
+function displayCategories($conn, $sep = '', $category_id = 0){
+	$categories = getCategories($conn, $category_id);
+	$html = '';
+	if(sizeof($categories)){ foreach($categories as $category){
+		$html .= '<option value="'. $category['category_id'].'">'. $sep . $category['category_name'].'</option>';
+		$html .= displayCategories($conn, $sep . '----', $category['category_id']);
+	}}
+	return $html;
+}

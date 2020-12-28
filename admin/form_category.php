@@ -58,22 +58,10 @@
 						<label for="category_name">Select Parent</label>
 						<select name="parent_id" id="parent_id" class="form-control">
 							<option value=""></option>
-							<?php $categories = getCategories($conn, 0); 
-							if(sizeof($categories)){ foreach($categories as $category){ ?>
-							<option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
 							
-							<?php $sub_categories = getCategories($conn, $category['category_id']); ?>
-								<?php if(sizeof($sub_categories)){ foreach($sub_categories as $sub_category){ ?>
-								<option value="<?php echo $sub_category['category_id']; ?>">----<?php echo $sub_category['category_name']; ?></option>
-								
-								<?php $sub_sub_categories = getCategories($conn, $sub_category['category_id']); ?>
-								<?php if(sizeof($sub_sub_categories)){ foreach($sub_sub_categories as $sub_sub_category){ ?>
-								<option value="<?php echo $sub_sub_category['category_id']; ?>">--------<?php echo $sub_sub_category['category_name']; ?></option>
-								<?php }} ?>
-								
-								
-								<?php }} ?>
-							<?php }} ?>
+							<?php echo displayCategories($conn); ?>
+							
+							
 						</select>
 						
 					  </div>
