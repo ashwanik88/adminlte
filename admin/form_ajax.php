@@ -106,8 +106,10 @@ $('#quickForm').submit(function(){
 			second_number: $('input[name="second_number"]').val(),
 		},
 		success: function(resp){
-			if(resp.success){
+			if(resp.success == true){
 				$('#result').val(resp.result);
+			}else{
+				$('#result').val('');
 			}
 			
 			alert(resp.msg);
@@ -122,7 +124,7 @@ $('#quickForm').submit(function(){
 			$('#quickForm input').attr('disabled', false);
 		},
 		error: function(){
-			
+			alert('Something went wrong please try again later!');
 		}
 	})
 	

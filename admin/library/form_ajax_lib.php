@@ -30,9 +30,17 @@ if($_POST){
 		$arr['success'] = true;
 		$arr['result'] = $result;
 		$arr['msg'] = 'Total = ' . $result;
-		
 	}
 	
 	echo json_encode($arr);
 	die;
 }
+
+/*
+	task
+	online chat
+	
+	mail()
+	oops
+	
+*/
